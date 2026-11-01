@@ -3,16 +3,16 @@
   "slug": "nexus-2035-house-tour",
   "repository": "https://github.com/somphol/nexus-2035-house-tour",
   "live_demo": "https://somphol.github.io/nexus-2035-house-tour/",
-  "status": "complete",
+  "status": "complete & deployed",
   "build": {
     "started_at": "2026-11-01T01:02:26-07:00",
-    "measured_at": "2026-11-01T08:41:04-07:00",
-    "wall_clock_seconds": 27518.2,
-    "wall_clock_human": "7h 38m 38s",
+    "measured_at": "2026-11-01T08:43:36-07:00",
+    "wall_clock_seconds": 27670.0,
+    "wall_clock_human": "7h 41m 10s",
     "excluded_idle_seconds": 21036.8,
     "excluded_idle_human": "5h 50m 37s",
-    "active_build_seconds": 6481.4,
-    "active_build_human": "1h 48m 1s",
+    "active_build_seconds": 6633.2,
+    "active_build_human": "1h 50m 33s",
     "time_note": "Wall clock spans the full session, including interruptions. Active build time excludes idle gaps longer than 5 minutes between agent messages."
   },
   "agent": {
@@ -24,12 +24,12 @@
     "session_id": "ses_e69de67b3ffe3izg6wn1BJ06Pw"
   },
   "tokens": {
-    "input": 651303,
-    "output": 102671,
-    "reasoning": 137502,
-    "cache_read": 23321472,
+    "input": 652490,
+    "output": 105663,
+    "reasoning": 139103,
+    "cache_read": 24808320,
     "cache_write": 1331,
-    "total": 24214279,
+    "total": 25706907,
     "cost_usd": 0.0,
     "ledger_note": "Read from the local OpenCode SQLite session ledger at measured_at. Total is the sum of input, output, reasoning, cache_read, and cache_write. Cache reads are repeated context tokens, not fresh prompt tokens."
   },
@@ -68,7 +68,8 @@
     "export_config": "PASS — nexus2035_house_state.json generated",
     "import_config": "PASS — imported state restored room, lighting, and glass",
     "local_storage": "PASS — autosave, restore, and pinned room presets",
-    "console_errors": 0
+    "console_errors": 0,
+    "live_deployment": "PASS — GitHub Pages returned HTTP 200 and served the full index.html"
   },
   "screenshots": [
     "docs/overview-neon.png",
@@ -99,5 +100,13 @@
     }
   ],
   "license": "MIT",
-  "report_note": "This state file is part of the project itself. Token totals were captured just before the final metadata commit; the commit that adds this file may add a small number of tokens after the measurement."
+  "report_note": "Token totals were read from the OpenCode session ledger after deployment and Pages verification. This file is part of the deployed project; any later git metadata operations may add a negligible number of tokens after this measurement.",
+  "deployment": {
+    "platform": "GitHub Pages",
+    "status": "live",
+    "url": "https://somphol.github.io/nexus-2035-house-tour/",
+    "verified_http_status": 200,
+    "verified_at": "2026-11-01T08:43:36-07:00",
+    "repository": "https://github.com/somphol/nexus-2035-house-tour"
+  }
 }
