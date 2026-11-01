@@ -1,10 +1,21 @@
-# Nexus 2035 — Futuristic 4BR House Tour Studio
+<div align="center">
 
-An interactive, room-by-room 3D architectural tour of a four-bedroom smart home set in the year 2035. Built with vanilla HTML5, CSS3, ES6 JavaScript, and Three.js r128 — no build step, no bundler, no framework.
+<img src="docs/social-card.png" alt="Nexus 2035 — Futuristic 4BR House Tour Studio" width="100%" />
 
-**Live demo:** [somphol.github.io/nexus-2035-house-tour](https://somphol.github.io/nexus-2035-house-tour/)
+# Nexus 2035
 
-![Nexus 2035 — neon overview](docs/overview-neon.png)
+**Futuristic 4BR House Tour Studio**
+
+An interactive, room-by-room 3D architectural tour of a four-bedroom smart home set in the year 2035.
+
+[![Live demo](https://img.shields.io/badge/live_demo-online-22d3ee?style=flat-square)](https://somphol.github.io/nexus-2035-house-tour/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-22d3ee?style=flat-square)](LICENSE)
+
+**[Try it live →](https://somphol.github.io/nexus-2035-house-tour/)**
+
+</div>
+
+---
 
 ## What's inside
 
