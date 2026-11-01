@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Nexus 2035 — Futuristic 4BR House Tour Studio</title>
+  <meta name="description" content="An interactive 3D architectural tour of a futuristic four-bedroom smart home, set in the year 2035. Explore room by room, tune circadian lighting, tint the smart glass, and export your own tour state." />
+  <meta name="theme-color" content="#05080e" />
+  <meta property="og:title" content="Nexus 2035 — Futuristic 4BR House Tour Studio" />
+  <meta property="og:description" content="Step inside a 2035 smart residence. Interactive Three.js architecture, circadian lighting, smart glass, and exportable tour states." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070b12'/%3E%3Cpath d='M18 46V18h7l14 19V18h7v28h-7L25 27v19z' fill='%235ee7ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body class="is-loading" data-light="daylight" data-glass="clear">
+  <main id="app">
+    <canvas id="scene-canvas" aria-label="Interactive 3D tour of the Nexus 2035 residence. Drag to orbit, scroll to zoom."></canvas>
+    <div class="screen-vignette" aria-hidden="true"></div>
+    <div class="screen-grain" aria-hidden="true"></div>
+
+    <!-- ── TOP BAR ─────────────────────────────────────────────── -->
+    <header class="topbar glass-panel">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>N</span></div>
+        <div class="brand-copy">
+          <div class="brand-line">
+            <span class="brand-name">NEXUS</span>
+            <span class="brand-year">2035</span>
+          </div>
+          <div class="brand-sub">Futuristic 4BR House Tour Studio</div>
+        </div>
+      </div>
+
+      <div class="status-strip" aria-label="Residence status">
+        <span class="status-pill"><i class="pulse-dot"></i> SMART HOME ONLINE</span>
+        <span class="status-pill optional">SOLAR <b>98%</b></span>
+        <span class="status-pill optional">AIR <b>12 AQI</b></span>
+      </div>
+
+      <div class="top-actions">
+        <div class="clock-block">
+          <span class="clock-label">NEXUS LOCAL</span>
+          <span class="clock" id="clock">--:--:--</span>
+        </div>
+        <button class="icon-btn mobile-rooms" id="rooms-toggle" type="button" aria-label="Open room menu" aria-expanded="false">
+          <span class="icon-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        <button class="icon-btn" id="help-btn" type="button" aria-label="Open controls and help" title="Controls & help">?</button>
+      </div>
+    </header>
+
+    <!-- ── ROOM DRAWER ─────────────────────────────────────────── -->
+    <aside class="room-drawer glass-panel" id="room-drawer" aria-label="Room navigation">
+      <div class="panel-head">
+        <span class="eyebrow">LEVEL 01 · RESIDENCE</span>
+        <button class="mini-btn" id="save-view-btn" type="button" title="Pin the current camera angle to the active room">PIN VIEW</button>
+      </div>
+      <h1 class="drawer-title">Explore the<br /><em>residence.</em></h1>
+      <nav id="room-list" class="room-list" aria-label="Jump to a room"></nav>
+      <div class="drawer-foot">
+        <span class="autosave" id="autosave">AUTOSAVE READY</span>
+        <span class="area-tag">284 M²</span>
+      </div>
+    </aside>
+
+    <!-- ── TELEMETRY / MINIMAP ─────────────────────────────────── -->
+    <aside class="telemetry glass-panel" id="telemetry" aria-label="Live residence telemetry">
+      <div class="panel-head">
+        <span class="eyebrow">LIVE TELEMETRY</span>
+        <span class="live-badge"><i></i> LIVE</span>
+      </div>
+
+      <div class="minimap-wrap">
+        <div class="minimap" id="minimap" aria-label="Interactive floor plan"></div>
+        <div class="map-caption"><span>FLOOR 01</span><span id="map-room-name">OVERVIEW</span></div>
+      </div>
+
+      <div class="readout-grid">
+        <div class="readout">
+          <span class="readout-label">ENERGY</span>
+          <span class="readout-value" id="energy-value">98<span>%</span></span>
+          <span class="readout-bar"><i style="width:98%"></i></span>
+        </div>
+        <div class="readout">
+          <span class="readout-label">TEMP</span>
+          <span class="readout-value" id="temp-value">21.5<span>°C</span></span>
+          <span class="readout-bar warm"><i style="width:62%"></i></span>
+        </div>
+        <div class="readout">
+          <span class="readout-label">AIR</span>
+          <span class="readout-value" id="air-value">12<span>AQI</span></span>
+          <span class="readout-bar green"><i style="width:88%"></i></span>
+        </div>
+        <div class="readout">
+          <span class="readout-label">WATER</span>
+          <span class="readout-value" id="water-value">86<span>%</span></span>
+          <span class="readout-bar"><i style="width:86%"></i></span>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <div class="env-state">
+        <div class="env-row">
+          <span class="env-dot glass-dot"></span>
+          <span class="env-label">SMART GLASS</span>
+          <span class="env-value" id="glass-state">CLEAR</span>
+        </div>
+        <div class="env-row">
+          <span class="env-dot light-dot"></span>
+          <span class="env-label">CIRCADIAN</span>
+          <span class="env-value" id="light-state">DAYLIGHT</span>
+        </div>
+      </div>
+
+      <div class="compass-wrap">
+        <div class="compass" aria-hidden="true">
+          <span class="compass-n">N</span>
+          <span class="compass-e">E</span>
+          <span class="compass-s">S</span>
+          <span class="compass-w">W</span>
+          <div class="compass-needle" id="compass-needle"></div>
+          <div class="compass-ring"></div>
+        </div>
+        <div class="compass-copy">
+          <span class="eyebrow">HEADING</span>
+          <span class="heading-value" id="heading-value">000°</span>
+          <span class="fps-value" id="fps-value">60 FPS</span>
+        </div>
+      </div>
+
+      <div class="credit-line">ENGINE · THREE.JS r128 <span>|</span> STUDIO · OPENCODE</div>
+    </aside>
+
+    <!-- ── VIEWFINDER EXTRAS ───────────────────────────────────── -->
+    <div class="room-banner" id="room-banner" aria-live="polite">
+      <span class="banner-index" id="banner-index">01</span>
+      <span class="banner-copy">
+        <span class="banner-eyebrow">NOW TOURING</span>
+        <span class="banner-name" id="banner-name">Living &amp; Kitchen</span>
+      </span>
+      <span class="banner-line"></span>
+      <span class="banner-meta" id="banner-meta">96 M² · SOUTH</span>
+    </div>
+
+    <div class="crosshair" id="crosshair" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="inspect-hint" id="inspect-hint" aria-hidden="true">
+      <span class="hint-key">CLICK</span> TO INSPECT
+    </div>
+    <div class="walk-hint" id="walk-hint" aria-hidden="true">
+      <b>WASD</b> MOVE <span>·</span> <b>DRAG</b> LOOK <span>·</span> <b>SHIFT</b> BOOST
+    </div>
+
+    <!-- ── CONTROL DOCK ────────────────────────────────────────── -->
+    <footer class="dock glass-panel" aria-label="Tour controls">
+      <div class="segmented" role="group" aria-label="Camera mode">
+        <button type="button" data-mode="orbit" class="active" aria-pressed="true"><span>◈</span> ORBIT</button>
+        <button type="button" data-mode="walk" aria-pressed="false"><span>⌖</span> WALK</button>
+      </div>
+
+      <div class="dock-divider" aria-hidden="true"></div>
+
+      <button class="dock-btn" id="glass-btn" type="button" title="Cycle smart glass tint (G)">
+        <span class="dock-icon">🌆</span>
+        <span class="dock-copy">SMART GLASS<b id="glass-label">Clear</b></span>
+      </button>
+
+      <button class="dock-btn" id="light-btn" type="button" title="Cycle circadian lighting (L)">
+        <span class="dock-icon">💡</span>
+        <span class="dock-copy">CIRCADIAN<b id="light-label">Daylight</b></span>
+      </button>
+
+      <button class="dock-btn" id="tour-btn" type="button" title="Start automatic room tour (T)">
+        <span class="dock-icon">▶</span>
+        <span class="dock-copy">AUTO TOUR<b id="tour-label">Idle</b></span>
+      </button>
+
+      <div class="dock-divider" aria-hidden="true"></div>
+
+      <button class="dock-btn" id="export-btn" type="button" title="Download the current tour configuration">
+        <span class="dock-icon">💾</span>
+        <span class="dock-copy">EXPORT<b>JSON state</b></span>
+      </button>
+
+      <button class="dock-btn" id="import-btn" type="button" title="Load a saved tour configuration">
+        <span class="dock-icon">📂</span>
+        <span class="dock-copy">LOAD<b>Restore</b></span>
+      </button>
+
+      <button class="dock-btn ghost" id="reset-btn" type="button" title="Reset the residence to its default state">
+        <span class="dock-icon">↺</span>
+        <span class="dock-copy">RESET<b>Defaults</b></span>
+      </button>
+
+      <input type="file" id="import-file" accept="application/json,.json" hidden />
+    </footer>
+
+    <!-- ── FEATURE CARD ────────────────────────────────────────── -->
+    <div class="modal-backdrop" id="feature-backdrop" aria-hidden="true"></div>
+    <section class="feature-card glass-panel" id="feature-card" role="dialog" aria-modal="true" aria-labelledby="feature-title" aria-hidden="true">
+      <button class="card-close" id="feature-close" type="button" aria-label="Close feature details">✕</button>
+      <div class="feature-visual">
+        <div class="feature-orb" aria-hidden="true"><span id="feature-icon">◈</span></div>
+        <div class="feature-visual-copy">
+          <span class="feature-cat" id="feature-cat">FOYER · SPATIAL INTERFACE</span>
+          <span class="feature-live"><i></i> SYSTEM ACTIVE</span>
+        </div>
+      </div>
+      <h2 class="feature-title" id="feature-title">Aura Hologram Core</h2>
+      <p class="feature-desc" id="feature-desc"></p>
+      <div class="spec-grid" id="feature-specs"></div>
+      <div class="feature-actions">
+        <button class="primary-btn" id="feature-focus" type="button">FOCUS VIEW <span>↗</span></button>
+        <button class="secondary-btn" id="feature-action" type="button" hidden>TOGGLE SYSTEM</button>
+        <button class="secondary-btn" id="feature-close-2" type="button">RETURN TO TOUR</button>
+      </div>
+      <div class="feature-foot"><span>NEXUS OS · OBJECT ID <b id="feature-id">—</b></span><span>2035.11</span></div>
+    </section>
+
+    <!-- ── HELP CARD ───────────────────────────────────────────── -->
+    <div class="modal-backdrop" id="help-backdrop" aria-hidden="true"></div>
+    <section class="help-card glass-panel" id="help-card" role="dialog" aria-modal="true" aria-labelledby="help-title" aria-hidden="true">
+      <button class="card-close" id="help-close" type="button" aria-label="Close help">✕</button>
+      <span class="eyebrow">NEXUS OS · QUICK GUIDE</span>
+      <h2 class="feature-title" id="help-title">Tour controls</h2>
+      <p class="feature-desc">A residence designed for effortless exploration. Orbit the architecture, walk the halls, and tune the atmosphere in real time.</p>
+      <div class="help-grid">
+        <div class="help-item"><span class="help-keys"><kbd>DRAG</kbd></span><span>Orbit / look around</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>SCROLL</kbd></span><span>Zoom in and out</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>Walk the residence</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>SHIFT</kbd></span><span>Boost walk speed</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>1</kbd>–<kbd>7</kbd></span><span>Teleport to room</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>0</kbd></span><span>Return to overview</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>G</kbd></span><span>Cycle smart glass tint</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>L</kbd></span><span>Cycle circadian light</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>O</kbd> / <kbd>W</kbd></span><span>Orbit / walk mode</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>T</kbd></span><span>Toggle auto tour</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>H</kbd></span><span>Open this guide</span></div>
+        <div class="help-item"><span class="help-keys"><kbd>ESC</kbd></span><span>Close panels</span></div>
+      </div>
+      <div class="help-note">
+        <span class="help-note-dot"></span>
+        <p><b>Inspect anything.</b> Click the hologram, beds, kitchen island, hydro-wall, and other key objects for live feature cards. Your camera, room, lighting, and glass state save automatically to this browser — export them to carry the tour to another device.</p>
+      </div>
+      <div class="feature-foot"><span>OPENCODE · DEEPSEEK V4.1 FLASH</span><span>BUILD 2035.11.01</span></div>
+    </section>
+
+    <div class="toast-stack" id="toasts" aria-live="polite"></div>
+
+    <!-- ── BOOT SEQUENCE ───────────────────────────────────────── -->
+    <div class="loader" id="loader">
+      <div class="loader-grid" aria-hidden="true"></div>
+      <div class="loader-inner">
+        <div class="loader-mark"><span>N</span><i></i></div>
+        <div class="loader-title">NEXUS <b>2035</b></div>
+        <div class="loader-sub">SPATIAL ENGINE · BOOT SEQUENCE</div>
+        <div class="loader-track"><div class="loader-bar" id="loader-bar"></div></div>
+        <div class="loader-meta">
+          <span id="loader-label">Initializing</span>
+          <span id="loader-pct">0%</span>
+        </div>
+      </div>
+      <div class="loader-foot"><span>ARCHITECTURE · LIGHT · MATTER</span><span>SF · 2035</span></div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

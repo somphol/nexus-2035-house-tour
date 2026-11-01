@@ -1,0 +1,103 @@
+{
+  "project": "Nexus 2035: Futuristic 4BR House Tour Studio",
+  "slug": "nexus-2035-house-tour",
+  "repository": "https://github.com/somphol/nexus-2035-house-tour",
+  "live_demo": "https://somphol.github.io/nexus-2035-house-tour/",
+  "status": "complete",
+  "build": {
+    "started_at": "2026-11-01T01:02:26-07:00",
+    "measured_at": "2026-11-01T08:41:04-07:00",
+    "wall_clock_seconds": 27518.2,
+    "wall_clock_human": "7h 38m 38s",
+    "excluded_idle_seconds": 21036.8,
+    "excluded_idle_human": "5h 50m 37s",
+    "active_build_seconds": 6481.4,
+    "active_build_human": "1h 48m 1s",
+    "time_note": "Wall clock spans the full session, including interruptions. Active build time excludes idle gaps longer than 5 minutes between agent messages."
+  },
+  "agent": {
+    "studio": "OpenCode",
+    "model": "DeepSeek V4.1 Flash",
+    "model_id": "deepseek-v4.1-flash",
+    "provider": "opencode-go",
+    "mode": "Code Mode / build agent",
+    "session_id": "ses_e69de67b3ffe3izg6wn1BJ06Pw"
+  },
+  "tokens": {
+    "input": 651303,
+    "output": 102671,
+    "reasoning": 137502,
+    "cache_read": 23321472,
+    "cache_write": 1331,
+    "total": 24214279,
+    "cost_usd": 0.0,
+    "ledger_note": "Read from the local OpenCode SQLite session ledger at measured_at. Total is the sum of input, output, reasoning, cache_read, and cache_write. Cache reads are repeated context tokens, not fresh prompt tokens."
+  },
+  "code": {
+    "language": [
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6"
+    ],
+    "engine": "Three.js r128 + OrbitControls",
+    "build_step": "none",
+    "files": {
+      "index.html": 273,
+      "style.css": 1807,
+      "script.js": 3525,
+      "README.md": 132
+    },
+    "sha256": {
+      "index.html": "6fd71c57a0c2a00440564d7732a87a0c9b1b669b66b295221a60f5db78379c7d",
+      "style.css": "c38e2a4e01bc083c428d3ac79eadd4ba71eb760345f2000caea6ad8bf3eb75d9",
+      "script.js": "2de8c0fe18c770869a0cdcd6e42957f3259e53ff332844794bddbcd1e7ea50be",
+      "README.md": "6c1f1662b5e4d6c4564f61312a9a836256df665a5bd35c3f8cc9bf4c7d189272"
+    }
+  },
+  "verification": {
+    "engine_boot": "PASS — loader completed, scene rendered under headless Chrome with SwiftShader",
+    "desktop_render": "PASS — 1440×900",
+    "mobile_render": "PASS — 390×844 responsive layout",
+    "room_teleport": "PASS — room drawer, minimap, and cinematic camera fly",
+    "orbit_controls": "PASS — OrbitControls loaded and damped in all room views",
+    "walk_mode": "PASS — mode switch and WASD movement confirmed without runtime errors",
+    "smart_glass": "PASS — clear → privacy → night cycling updates material and HUD",
+    "circadian_lighting": "PASS — daylight → sunset → neon updates sky, lights, city glow, and UI accent",
+    "inspect_cards": "PASS — raycast opens feature card and Focus View closes into camera move",
+    "help_modal": "PASS",
+    "export_config": "PASS — nexus2035_house_state.json generated",
+    "import_config": "PASS — imported state restored room, lighting, and glass",
+    "local_storage": "PASS — autosave, restore, and pinned room presets",
+    "console_errors": 0
+  },
+  "screenshots": [
+    "docs/overview-neon.png",
+    "docs/living-neon.png",
+    "docs/ar-studio-neon.png",
+    "docs/balcony-sunset.png"
+  ],
+  "credits": [
+    {
+      "role": "AI coding studio",
+      "name": "OpenCode",
+      "url": "https://opencode.ai"
+    },
+    {
+      "role": "Model",
+      "name": "DeepSeek V4.1 Flash",
+      "provider": "opencode-go"
+    },
+    {
+      "role": "3D engine",
+      "name": "Three.js r128",
+      "url": "https://threejs.org"
+    },
+    {
+      "role": "Type",
+      "name": "Orbitron + Manrope",
+      "url": "https://fonts.google.com"
+    }
+  ],
+  "license": "MIT",
+  "report_note": "This state file is part of the project itself. Token totals were captured just before the final metadata commit; the commit that adds this file may add a small number of tokens after the measurement."
+}
