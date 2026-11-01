@@ -3,3 +3,7 @@
 node_modules/
 test-harness.html
 lstest.html
+
+Thumbs.db
+_site/
+.env
