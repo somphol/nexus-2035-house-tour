@@ -101,8 +101,16 @@ Click the hologram, beds, kitchen island, hydro-wall, or other highlighted objec
 ├── index.html                 # UI shell, HUD, modals, loader
 ├── style.css                  # Glassmorphism design system + responsive layout
 ├── script.js                  # Three.js engine, architecture, props, state, interactions
+├── AGENTS.md                  # Maintainer handoff
+├── CHANGELOG.md               # Change history
+├── docs/ARCHITECTURE.md       # Files, world contract, camera, persistence
+├── docs/REPRODUCTION.md       # Rebuild and acceptance checks
+├── docs/DEPLOYMENT.md         # Pages hosting, verification, rollback
+├── docs/TESTING.md            # Evidence, release check, manual matrix
+├── docs/social-card.png       # 1200 × 630 link preview
+├── scripts/check.mjs          # Dependency-free release gate
+├── skills/nexus-2035-house-tour/  # Reusable skill + byte-identical template
 ├── state.json                 # Build state: elapsed time, token usage, credits
-├── docs/                      # README screenshots
 ├── LICENSE
 └── README.md
 ```
@@ -153,6 +161,12 @@ documentation fixes alike. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and th
 | Document | Purpose |
 | --- | --- |
 | [README.md](README.md) | Overview, setup, controls, and architecture |
+| [AGENTS.md](AGENTS.md) | Handoff for the next maintainer or agent |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Files, world contract, camera, materials, persistence |
+| [docs/REPRODUCTION.md](docs/REPRODUCTION.md) | How to rebuild the project from scratch |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Pages hosting, verification, rollback |
+| [docs/TESTING.md](docs/TESTING.md) | Evidence, release check, manual matrix |
+| [skills/nexus-2035-house-tour/SKILL.md](skills/nexus-2035-house-tour/SKILL.md) | Reusable build skill and template |
 | [CHANGELOG.md](CHANGELOG.md) | Notable changes and release history |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Local workflow, constraints, and pull request checks |
 | [SECURITY.md](SECURITY.md) | Supported versions and private vulnerability reporting |
